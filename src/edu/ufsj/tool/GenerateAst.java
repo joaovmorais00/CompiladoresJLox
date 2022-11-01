@@ -12,7 +12,7 @@ public class GenerateAst {
 		System.exit(64);
 	}
 		String outputDir = args[0];
-		defineAst( outputDir , "Expr" , Arrays.asList("Binary : Expr left , Token operator , Expr right", "Grouping : Expr expression", "Literal : Object value", "Unary : Token operator, Expr right"));
+		defineAst( outputDir , "Expr" , Arrays.asList("Binary : Expr left,Token operator,Expr right", "Grouping : Expr expression", "Literal : Object value", "Unary : Token operator,Expr right"));
 	}
 	
 	private static void defineAst ( String outputDir, String baseName, List < String > types ) throws IOException{
@@ -38,10 +38,12 @@ public class GenerateAst {
 	
 	private static void defineType ( PrintWriter writer, String baseName, String className, String fieldList ) {
 		writer.println( "static class " + className + " extends " + baseName + " {" );
-		writer.println ( " " + className + "(" + fieldList + ") {" );
+		writer.println ( "	" + className + "(" + fieldList + ") {" );
 		String[] fields = fieldList.split( "," );
 		for ( String field : fields ) {
-			String name = field.split( " " )[1];
+			System.out.printf("%s, filed\n", field);
+			String name = field.split(" ")[1];
+			System.out.printf("%s, name\n", name);
 			writer.println( "	this." + name + " = " + name + ";" );
 		}
 		writer.println( "}" );

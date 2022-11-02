@@ -82,11 +82,13 @@ class Parser {
 			 return null ;
 		 }
 	 }
+	 
 
 	
 	 private Expr expression () {
-		 return equality ();
-	 }
+		 Expr expr = equality();
+		 return expr;
+	 }	
 	 
 	 private Expr equality () {
 		 Expr expr = comparison();

@@ -25,6 +25,8 @@ static class Binary extends Expr {
 	final Token operator;
 	final Expr right;
 }
+
+
 static class Grouping extends Expr {
 	Grouping(Expr expression) {
 	this.expression = expression;
@@ -37,6 +39,10 @@ static class Grouping extends Expr {
 
 	final Expr expression;
 }
+
+
+
+
 static class Literal extends Expr {
 	Literal(Object value) {
 	this.value = value;

@@ -1,4 +1,5 @@
 package edu.ufsj.lox;
+import java.util.ArrayList;
 import java.util.List;
 import static edu.ufsj.lox.TokenType.*;
 
@@ -75,9 +76,15 @@ class Parser {
 		 }
 	 }
 	 
-	 Expr parse () {
+	 List <Expr> parse () {
 		 try {
-			 return expression ();
+			 List <Expr> expressions = new ArrayList <Expr>();
+			 while(!isAtEnd()) {
+				 Expr expr = expression();
+				 expressions.add(expr);
+				 advance();
+			 }
+			 return expressions;
 		 } catch ( ParseError error ) {
 			 return null ;
 		 }
@@ -87,6 +94,12 @@ class Parser {
 	
 	 private Expr expression () {
 		 Expr expr = equality();
+		 if(match(QUESTION)) {
+			 Expr term1 = term();
+			 match((COLON));
+			 Expr term2 = term();
+			 expr = new Expr.Ternary(expr, term1, term2);
+		 }
 		 return expr;
 	 }	
 	 

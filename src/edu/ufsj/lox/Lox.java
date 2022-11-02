@@ -51,10 +51,12 @@ public class Lox {
 		}
 		System.out.println("-----------------------------------");
 		Parser parser = new Parser ( tokens );
-		Expr expression = parser.parse();
+		List<Expr> expressions = parser.parse();
 		if ( hadError ) return ;
-		System.out.println (new
-		AstPrinter().print( expression ));
+		for(Expr expression : expressions) {
+			System.out.println (new AstPrinter().print( expression ));
+			System.out.println();
+		}
 		for ( Token token : tokens ) {
 			System.out.println ( token );
 		}

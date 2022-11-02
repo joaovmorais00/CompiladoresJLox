@@ -1,13 +1,20 @@
 package edu.ufsj.lox ;
 
 class AstPrinter implements Expr.Visitor < String > {
+
+
 	String print ( Expr expr ) {
+
 		return expr.accept ( this );
 	}
 	
 	@Override
 	public String visitBinaryExpr ( Expr.Binary expr ) {
 		return parenthesize ( expr.operator.lexeme, expr.left , expr.right );
+	}
+	@Override
+	public String visitTernaryExpr ( Expr.Ternary expr ) {
+		return parenthesizeTernary ( expr.expr, expr.term1 , expr.term2 );
 	}
 	@Override
 	public String visitGroupingExpr ( Expr.Grouping expr ){
@@ -34,7 +41,14 @@ class AstPrinter implements Expr.Visitor < String > {
 		return builder.toString();
 	}
 	
-
+	private String parenthesizeTernary (Expr expr, Expr term1, Expr term2 ) {
+		StringBuilder builder = new StringBuilder();
+		builder.append( "( " ).append(term2.accept(this) );
+		builder.append( "(: " ).append(term1 .accept(this));
+		builder.append( "( ? " ).append(expr.accept(this)).append(" )");
+		builder.append( " ) )" );
+		return builder.toString();
+	}
 	
 //	public static void main ( String [] args ) {
 //		Expr expression = new Expr . Binary (

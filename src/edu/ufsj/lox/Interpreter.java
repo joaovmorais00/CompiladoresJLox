@@ -108,7 +108,7 @@ public class Interpreter implements Expr.Visitor<Object>{
                     return resultado;
                 }
                 if (left instanceof Double && right instanceof String) {
-                    String resultado = right + stringify(left);
+                    String resultado = stringify(left) + right;
 //                    System.out.println(resultado);
                     return resultado;
                 }
